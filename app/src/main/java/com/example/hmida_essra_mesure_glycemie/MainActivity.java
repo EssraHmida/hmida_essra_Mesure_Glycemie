@@ -31,13 +31,17 @@ public class MainActivity extends AppCompatActivity {
 
                     fromUser) {
 
-                Log.i("Information", "onProgressChanged "+progress);
-                tvAge.setText("Votre âge : "+ progress);
+                Log.i("Information", "onProgressChanged " + progress);
+                tvAge.setText("Votre âge : " + progress);
             }
+
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar){}
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {}
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
         });
         btnConsulter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,74 +49,74 @@ public class MainActivity extends AppCompatActivity {
 
                 Log.i("Information", "button cliqué");
                 boolean verifAge = false, verifValeur = false;
-                if(sbAge.getProgress()!=0)
+                if (sbAge.getProgress() != 0)
                     verifAge = true;
                 else
                     Toast.makeText(MainActivity.this, "Veuillez saisir votre age !", Toast.LENGTH_SHORT).show();
 
-                if(!etValeur.getText().toString().isEmpty())
+                if (!etValeur.getText().toString().isEmpty())
                     verifValeur = true;
                 else
                     Toast.makeText(MainActivity.this, "Veuillez saisir votre " +
                             "valeur mesurée !", Toast.LENGTH_LONG).show();
-                if(verifAge && verifValeur)
-                {
+                if (verifAge && verifValeur) {
                     calculer();
                 }
             }
         });
     }
-    public void calculer ()
-    {
-        Log.i("information","on click sur le bouton btnConsulter");
+
+    public void calculer() {
+        Log.i("information", "on click sur le bouton btnConsulter");
         int age;
         float valeurMesuree;
-        boolean verifAge=false,verifValeur=false;
-        if(sbAge.getProgress()!=0)
-            verifAge=true;
-        else Toast.makeText(MainActivity.this, "veuillez saisir votre age", Toast.LENGTH_SHORT).show();
-        if(etValeur.getText().toString().isEmpty())
+        boolean verifAge = false, verifValeur = false;
+        if (sbAge.getProgress() != 0)
+            verifAge = true;
+        else
+            Toast.makeText(MainActivity.this, "veuillez saisir votre age", Toast.LENGTH_SHORT).show();
+        if (etValeur.getText().toString().isEmpty())
             Toast.makeText(MainActivity.this, "vauillez saisir votre valeur mesurée", Toast.LENGTH_LONG).show();
-        else verifValeur=true;
-        if(verifAge && verifValeur){
-            age= sbAge.getProgress();
-            valeurMesuree= Float.valueOf(etValeur.getText().toString());
+        else verifValeur = true;
+        if (verifAge && verifValeur) {
+            age = sbAge.getProgress();
+            valeurMesuree = Float.valueOf(etValeur.getText().toString());
 
-        boolean isFasting = rbIsFasting.isChecked();//oui
-        if(isFasting) {
-            if (age >= 13) {
-                if (valeurMesuree < 5.0)
-                    tvReponse.setText("Niveau de glycémie est trop bas");
-                else if (valeurMesuree >= 5.0 && valeurMesuree <= 7.2)
-                    tvReponse.setText("Niveau de glycémie est normale");
-                else
-                    tvReponse.setText("Niveau de glycémie est trop élevé");
-            } else if (age >= 6 && age <= 12) {
-                if (valeurMesuree < 5.0)
-                    tvReponse.setText("Niveau de glycémie est trop bas");
-                else if (valeurMesuree >= 5.0 && valeurMesuree <= 10.0)
-                    tvReponse.setText("Niveau de glycémie est normale");
-                else
-                    tvReponse.setText("Niveau de glycémie est trop élevé");
-            } else if (age < 6) {
-                if (valeurMesuree < 5.5)
-                    tvReponse.setText("Niveau de glycémie est trop bas");
-                else if (valeurMesuree >= 5.5 && valeurMesuree <= 10.0)
-                    tvReponse.setText("Niveau de glycémie est normale");
+            boolean isFasting = rbIsFasting.isChecked();//oui
+            if (isFasting) {
+                if (age >= 13) {
+                    if (valeurMesuree < 5.0)
+                        tvReponse.setText("Niveau de glycémie est trop bas");
+                    else if (valeurMesuree >= 5.0 && valeurMesuree <= 7.2)
+                        tvReponse.setText("Niveau de glycémie est normale");
+                    else
+                        tvReponse.setText("Niveau de glycémie est trop élevé");
+                } else if (age >= 6 && age <= 12) {
+                    if (valeurMesuree < 5.0)
+                        tvReponse.setText("Niveau de glycémie est trop bas");
+                    else if (valeurMesuree >= 5.0 && valeurMesuree <= 10.0)
+                        tvReponse.setText("Niveau de glycémie est normale");
+                    else
+                        tvReponse.setText("Niveau de glycémie est trop élevé");
+                } else if (age < 6) {
+                    if (valeurMesuree < 5.5)
+                        tvReponse.setText("Niveau de glycémie est trop bas");
+                    else if (valeurMesuree >= 5.5 && valeurMesuree <= 10.0)
+                        tvReponse.setText("Niveau de glycémie est normale");
 
-                else
+                    else
+                        tvReponse.setText("Niveau de glycémie est trop élevé");
+                }
+            } else {
+                if (valeurMesuree > 10.5)
                     tvReponse.setText("Niveau de glycémie est trop élevé");
+                else
+                    tvReponse.setText("Niveau de glycémie est normale");
             }
-        } else {
-            if (valeurMesuree > 10.5)
-                tvReponse.setText("Niveau de glycémie est trop élevé");
-            else
-                tvReponse.setText("Niveau de glycémie est normale");
         }
     }
-    }
-    private void init()
-    {
+
+    private void init() {
         sbAge = findViewById(R.id.sbAge);
         tvAge = findViewById(R.id.tvAge);
         etValeur = findViewById(R.id.etValeur);
